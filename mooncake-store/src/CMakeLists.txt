@@ -162,6 +162,7 @@ endif()
 if(USE_NOF)
   add_subdirectory(spdk)
   list(APPEND MOONCAKE_STORE_SOURCES ${SPDK_WRAPPER_SOURCES})
+  add_subdirectory(tools)
 
   set(SPDK_INCLUDE_DIR
       "/usr/local/include"
@@ -336,8 +337,8 @@ endif()
 # NOTE: mooncake_store is a static library (.a). External consumers (Go CGo,
 # Python pybind) that link it must also link the GPU runtime (e.g. -lcudart).
 # Go's build.sh already does this; CI workflows must do the same.
-
-find_package(CUDAToolkit QUIET)
+#
+# find_package(CUDAToolkit QUIET)
 if(CUDAToolkit_FOUND)
   message(STATUS "mooncake_store: CUDAToolkit detected, enabling D2H staging")
   target_compile_definitions(mooncake_store PRIVATE USE_CUDA)
